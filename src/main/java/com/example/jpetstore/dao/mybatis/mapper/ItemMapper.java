@@ -36,5 +36,13 @@ public interface ItemMapper {
   Item getItem(String itemId);
   
   boolean isItemInStock(String itemId);
+  
+  int getIsAuction(String itemId);
+
+List<Item> getItemListIsAuction();
+
+void insertAuctionItem(Item item);
+
+void insertItem(Item item);
 
 }

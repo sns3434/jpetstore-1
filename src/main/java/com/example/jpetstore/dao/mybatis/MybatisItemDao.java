@@ -30,6 +30,18 @@ public class MybatisItemDao implements ItemDao {
 		}
 	}
 
+	@Override
+	public void insertItem(Item item) {
+		// TODO Auto-generated method stub
+		itemMapper.insertItem(item);
+	}
+
+	@Override
+	public List<Item> getItemListIsAuction() {
+		// TODO Auto-generated method stub
+		return itemMapper.getItemListIsAuction();
+	}
+
 	public boolean isItemInStock(String itemId) throws DataAccessException {
 		return (itemMapper.getInventoryQuantity(itemId) > 0);
 	}
@@ -42,4 +54,18 @@ public class MybatisItemDao implements ItemDao {
 	public Item getItem(String itemId) throws DataAccessException {
 		return itemMapper.getItem(itemId);
 	}
+
+	@Override
+	public int getIsAuction(String itemId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		System.out.println("MyBatisItemDao:isAuction: "+ itemMapper.getIsAuction(itemId));
+		return (itemMapper.getIsAuction(itemId));
+	}
+
+	@Override
+	public void insertAuctionItem(Item item) {
+		// TODO Auto-generated method stub
+		itemMapper.insertAuctionItem(item);
+	}
+
 }

@@ -1,11 +1,15 @@
 package com.example.jpetstore.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.jpetstore.dao.AccountDao;
 import com.example.jpetstore.dao.CategoryDao;
+import com.example.jpetstore.dao.EventDao;
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
@@ -65,9 +69,31 @@ public class PetStoreImpl implements PetStoreFacade {
 	@Autowired
 	private OrderDao orderDao;
 
+	private EventDao eventDao;
+	@Autowired		// applicationContext.xml�뿉 �젙�쓽�맂 scheduler 媛앹껜瑜� 二쇱엯 諛쏆쓬
+	private ThreadPoolTaskScheduler scheduler;
+
 	//-------------------------------------------------------------------------
 	// Operation methods, implementing the PetStoreFacade interface
 	//-------------------------------------------------------------------------
+
+	@Override
+	public void insertAuctionItem(Item item) {
+		// TODO Auto-generated method stub
+		itemDao.insertAuctionItem(item);
+	}
+
+	@Override
+	public void insertItem(Item item) {
+		// TODO Auto-generated method stub
+		itemDao.insertItem(item);
+		
+	}
+
+	public List<Item> getItemListIsAuction() {
+		// TODO Auto-generated method stub
+		return itemDao.getItemListIsAuction();
+	}
 
 	public Account getAccount(String username) {
 		return accountDao.getAccount(username);
@@ -95,6 +121,11 @@ public class PetStoreImpl implements PetStoreFacade {
 
 	public Category getCategory(String categoryId) {
 		return categoryDao.getCategory(categoryId);
+	}
+
+	public List<Product> getProductList() {
+		// TODO Auto-generated method stub
+		return productDao.getProductList();
 	}
 
 	public List<Product> getProductListByCategory(String categoryId) {
@@ -132,5 +163,28 @@ public class PetStoreImpl implements PetStoreFacade {
 
 	public List<Order> getOrdersByUsername(String username) {
 		return orderDao.getOrdersByUsername(username);
+	}
+public void testScheduler(Date closingTime) {
+		
+		Runnable updateTableRunner = new Runnable() {	
+			// anonymous class �젙�쓽
+			@Override
+			public void run() {   // �뒪耳�伊대윭�뿉 �쓽�빐 誘몃옒�쓽 �듅�젙 �떆�젏�뿉 �떎�뻾�맆 �옉�뾽�쓣 �젙�쓽				
+				Date curTime = new Date();
+				// �떎�뻾 �떆�젏�쓽 �떆媛곸쓣 �쟾�떖�븯�뿬 洹� �떆媛� �씠�쟾�쓽 closing time 媛믪쓣 媛뽯뒗 event�쓽 �긽�깭瑜� 蹂�寃� 
+				eventDao.closeEvent(curTime);	// EVENTS �뀒�씠釉붿쓽 �젅肄붾뱶 媛깆떊	
+				System.out.println("updateTableRunner is executed at " + curTime);
+			}
+		};
+		
+		HashMap<String, Date> hashMap = new HashMap<String, Date>();
+		hashMap.put("curTime", new Date());			// �쁽�옱 �떆媛�: PK 媛믪쑝濡� �궗�슜
+		hashMap.put("closingTime", closingTime);	// 誘몃옒�쓽 醫낅즺 �떆媛�
+		eventDao.insertNewEvent(hashMap);	// EVENTS �뀒�씠釉붿뿉 �젅肄붾뱶 �궫�엯
+
+		// �뒪耳�以� �깮�꽦: closingTime�뿉 updateTableRunner.run() 硫붿냼�뱶 �떎�뻾
+		scheduler.schedule(updateTableRunner, closingTime);  
+		
+		System.out.println("updateTableRunner has been scheduled to execute at " + closingTime);
 	}
 }

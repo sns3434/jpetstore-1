@@ -1,4 +1,5 @@
 <%@ include file="IncludeTop.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 
 <table style="border:none;border-collapse:collapse;width:100%">
   <tr>
@@ -45,6 +46,11 @@
                     <img border="0" src="../images/birds_icon.gif" /></a>
                 </td>
               </tr>
+              <tr>
+              	<td>
+              		<a href="<c:url value="/shop/viewProduct.do?productId=auction"/>"><h2>Auction</h2></a>
+              	</td>
+              </tr>
             </table>
           </td>
           <td style="text-align:center;background-color:white;height:300;width:100%">
@@ -64,6 +70,8 @@
     </td>
   </tr>
 </table>
+
+<a href="<c:url value="/shop/auctionRegister.do"/>">등록</a>
 
 <%@ include file="IncludeBanner.jsp" %>
 

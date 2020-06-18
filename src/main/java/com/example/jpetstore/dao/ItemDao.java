@@ -17,4 +17,13 @@ public interface ItemDao {
 
   Item getItem(String itemId) throws DataAccessException;
 
+
+  int getIsAuction(String auctionId) throws DataAccessException;
+
+  public List<Item> getItemListIsAuction();
+
+public void insertAuctionItem(Item item);
+
+public void insertItem(Item item);
+
 }

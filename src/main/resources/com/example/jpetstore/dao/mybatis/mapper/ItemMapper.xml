@@ -25,6 +25,28 @@
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.PRODUCTID = #{value}
   </select>
+  
+  <select id="getItemListIsAuction" resultType="Item">
+    SELECT
+      I.ITEMID,
+      I.PRODUCTID,
+      LISTPRICE,
+      UNITCOST,
+      SUPPLIER AS supplierId,
+      I.PRODUCTID AS "product.productId",
+      NAME AS "product.name",
+      DESCN AS "product.description",
+      CATEGORY AS "product.categoryId",
+      STATUS,
+      ATTR1 AS attribute1,
+      ATTR2 AS attribute2,
+      ATTR3 AS attribute3,
+      ATTR4 AS attribute4,
+      ATTR5 AS attribute5
+    FROM ITEM I, PRODUCT P
+    WHERE P.PRODUCTID = I.PRODUCTID
+      AND I.ISAUCTION = 1
+  </select>
 
   <select id="getItem" resultType="Item">
     SELECT
@@ -43,7 +65,8 @@
       ATTR3 AS attribute3,
       ATTR4 AS attribute4,
       ATTR5 AS attribute5,
-      QTY AS quantity
+      QTY AS quantity,
+      I.ISAUCTION AS isAuction
     FROM ITEM I, INVENTORY V, PRODUCT P
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.ITEMID = V.ITEMID
@@ -61,4 +84,24 @@
     SET QTY = QTY - #{increment}
     WHERE ITEMID = #{itemId}
   </update>
+  
+  <select id="getIsAuction" resultType="int">
+  	SELECT ISAUCTION
+  	FROM ITEM
+  	WHERE ITEMID = #{itemId}
+  </select>
+  
+   <insert id="insertAuctionItem" parameterType="Item">
+    INSERT INTO ITEM
+      (ITEMID, PRODUCTID, LISTPRICE, UNITCOST, SUPPLIER, STATUS, ATTR1, ISAUCTION, DEADLINE, DEPOSIT)
+    VALUES
+      (#{itemId}, #{productId,jdbcType=VARCHAR}, #{listPrice,jdbcType=VARCHAR}, #{unitCost,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{attribute1}, #{isAuction,jdbcType=VARCHAR}, #{deadline,jdbcType=VARCHAR}, #{deposit,jdbcType=VARCHAR})
+  </insert>
+  
+    <insert id="insertItem" parameterType="Item">
+    INSERT INTO ITEM
+      (ITEMID, PRODUCTID, LISTPRICE, UNITCOST, SUPPLIER, STATUS, ATTR1, ISAUCTION)
+    VALUES
+      (#{itemId}, #{productId}, #{listPrice}, #{unitCost}, #{supplierId}, P, #{attribute1}, 0)
+  </insert>
 </mapper>
