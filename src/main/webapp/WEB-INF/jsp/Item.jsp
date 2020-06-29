@@ -11,6 +11,8 @@
   <meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
   <meta http-equiv="Pragma" content="no-cache">
   <link rel="stylesheet" href="../style/petstore.css" type="text/css" />
+   <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="date.format.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -23,28 +25,24 @@ setInterval(
 	)
 	
 	function requestAjax(){
-	
+	var url_string =window.location.href;
+	var url = new URL(url_string);
+	var c = url.searchParams.get("itemId");
+	console.log(c);
 		$.ajax
 		({
 			type : "GET",
 			url :  "getDeadline.do", 
-			data: "itemId=erer",
+			data: "itemId="+c,
 			dataType : "json",
 			
-			success: function(responseJson){
+			success: function(data){
 				var time = document.getElementById("time");
-			
-				var content = "<br>데이터 사용:<br>";
-		        if (responseJson.length) {
-					$(responseJson).each(function(i, item){
-		            	content += "남은시간"+ item.closingTime + 
-	          			 "<br><br>";
-		            });
-				}
-				else content = "No result!";	         
+				
+		        ;	         
 			//	$("#item").append(content);
 			
-				time.innerHTML=responseJson.closingTime;
+				time.innerHTML=data.closingTime;
 				}
 
 			})
@@ -52,6 +50,18 @@ setInterval(
 	}
 
 </script>
+
+        <script>
+                var date = ;
+                var nowDate = new Date(parseInt(date.substr(6)));
+                var result = "";
+                result += nowDate.format("UTC:yyyy-mm-dd'T'HH:MM:ss'Z'") + " : UTC:yyyy-mm-dd'T'HH:MM:ss'Z'<br/>";
+
+                $(function() {
+                        $("#lblDate").html(result);
+                });
+        </script>
+
  </head>
 
 <body bgcolor="white">
@@ -125,7 +135,7 @@ setInterval(
         <c:out value="${product.name}" />
         </font></b></td>
     </tr>
-    <tr id = time>시간이 왜 안뜨나</tr>
+    <tr id = time><td>남은시간 </td></tr>
     <tr>
       <td><font size="3"><i><c:out value="${product.name}" /></i></font></td>
     </tr>
