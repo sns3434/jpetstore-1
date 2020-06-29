@@ -17,17 +17,20 @@
 setInterval(
 	function(){
 	requestAjax();
-
+	
 		},1000
+		
 	)
 	
 	function requestAjax(){
-	System.out.println("requestAjax");
+	
 		$.ajax
 		({
-			type : 'GET',
-			url :  'getDeadline.do'
-			dataType : 'json',
+			type : "GET",
+			url :  "getDeadline.do", 
+			data: "itemId=erer",
+			dataType : "json",
+			
 			success: function(responseJson){
 				var time = document.getElementById("time");
 			
@@ -39,9 +42,9 @@ setInterval(
 		            });
 				}
 				else content = "No result!";	         
-				$("#item").append(content);
+			//	$("#item").append(content);
 			
-				time.innerHTML=content;
+				time.innerHTML=responseJson.closingTime;
 				}
 
 			})

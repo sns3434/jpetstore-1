@@ -29,23 +29,21 @@ public class ViewItemController {
 	}
 
 	
-	  @RequestMapping("/shop/getDeadline.do")
-	  @ResponseBody public List<Item> getDeadline(
-	  @RequestParam("itemId") String itemId, ModelMap model) throws Exception {
+	  @RequestMapping("shop/getDeadline.do")
+	  @ResponseBody public Item getDeadline(
+	  @RequestParam("itemId") String itemId) throws Exception {
 	  
-	  Item item = this.petStore.getItem(itemId); List<Item> items = new
-	  ArrayList<>(); items.add(item); System.out.println("controller:is Auction?" +
-	  item.getIsAuction()); model.put("item", item); model.put("product",
-	  item.getProduct());
+	  Item item = this.petStore.getItem(itemId); 
+	 
 	  System.out.println(item.getClosingTime());
 	  System.out.println(item.getTimeStatus());
-	  return items;
+	  return item;
 	  
 	  }
 	 
 	
-	  @RequestMapping("/shop/viewItem.do") public String handleRequest(
-	  
+	  @RequestMapping("/shop/viewItem.do") 
+	  public String handleRequest(
 	  @RequestParam("itemId") String itemId, ModelMap model) throws Exception {
 	  
 	  Item item = this.petStore.getItem(itemId); //List<Item> items = new
