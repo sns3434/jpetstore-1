@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.mybatis.mapper.ItemMapper;
+import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.LineItem;
 import com.example.jpetstore.domain.Order;
@@ -82,6 +83,10 @@ public class MybatisItemDao implements ItemDao {
 		// TODO Auto-generated method stub
 		itemMapper.updateAuctionItem(item);
 	}
+	
+	public void updateAuctionId(Auction auction) {
+		itemMapper.updateAuctionId(auction);
+	}
 
 	public List<Item> getItemListByUsername(String username) {
 		// TODO Auto-generated method stub
@@ -93,6 +98,18 @@ public class MybatisItemDao implements ItemDao {
 	public List<Item> getAuctionItemListByUsername(String username) {
 		// TODO Auto-generated method stub
 		return itemMapper.getAuctionItemListByUsername(username);
+	}
+
+	@Override
+	public void updateItem(Item item) {
+		// TODO Auto-generated method stub
+		itemMapper.updateItem(item);
+	}
+
+	@Override
+	public void deleteItem(String itemId) {
+		// TODO Auto-generated method stub
+		itemMapper.deleteItem(itemId);
 	}
 
 }

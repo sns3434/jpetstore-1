@@ -119,9 +119,11 @@
       QTY AS quantity,
       I.ISAUCTION AS isAuction,
       I.DEPOSIT AS deposit,
+
       I.USERNAME AS username2 ,
       I.closingTime AS closingTime,
       I.timeStatus AS timeStatus
+
     FROM ITEM I, INVENTORY V, PRODUCT P
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.ITEMID = V.ITEMID
@@ -142,14 +144,31 @@
   
     <update id="updateAuctionItem" parameterType="Item">
     UPDATE ITEM SET
+    ITEMID = #{itemId},
+    PRODUCTID = #{productId},
       LISTPRICE = #{listPrice},
       UNITCOST = #{unitCost},
       ATTR1 = #{attribute1},
-      DEADLINE = #{deadline},
-      DEPOSIT = #{deposit},
+      CLOSINGTIME = #{closingTime},
+      DEPOSIT = #{deposit}
     WHERE ITEMID = #{itemId}
   </update>
   
+      <update id="updateItem" parameterType="Item">
+    UPDATE ITEM SET
+    ITEMID = #{itemId},
+    PRODUCTID = #{productId},
+      LISTPRICE = #{listPrice},
+      UNITCOST = #{unitCost},
+      ATTR1 = #{attribute1}
+    WHERE ITEMID = #{itemId}
+  </update>
+  
+  <update id="updateAuctionId" parameterType="AUCTION">
+  	UPDATE ITEM
+  	SET AUCTIONID = #{maxAuctionId}
+  	WHERE ITEMID = #{itemId}
+  </update>
 
    <update id="closeEvent" parameterType="Date">
     <![CDATA[
@@ -170,13 +189,13 @@
   </insert>
   
    <insert id="insertAuctionItem" parameterType="Item">
-        <selectKey keyProperty = "auctionId" resultType = "int" order = "BEFORE">
+        <!-- <selectKey keyProperty = "auctionId" resultType = "int" order = "BEFORE">
   			SELECT auctionnum.nextval AS auctionId FROM DUAL
-  	    </selectKey>
+  	    </selectKey> -->
     INSERT INTO ITEM
       (ITEMID, PRODUCTID, LISTPRICE, UNITCOST, SUPPLIER, STATUS, ATTR1, ISAUCTION, AUCTIONID, USERNAME, CLOSINGTIME, TIMESTATUS, DEPOSIT)
     VALUES
-      (#{itemId}, #{productId,jdbcType=VARCHAR}, #{listPrice,jdbcType=VARCHAR}, #{unitCost,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{attribute1}, #{isAuction,jdbcType=VARCHAR}, #{auctionId}, #{username2,jdbcType=VARCHAR}, #{closingTime}, 'OPEN', #{deposit,jdbcType=VARCHAR})
+      (#{itemId}, #{productId}, #{listPrice}, #{unitCost}, #{supplierId,jdbcType=VARCHAR}, #{status}, #{attribute1}, #{isAuction}, #{auctionId,jdbcType=VARCHAR}, #{username2,jdbcType=VARCHAR}, #{closingTime}, 'OPEN', #{deposit,jdbcType=VARCHAR})
   </insert>
   
     <insert id="insertItem" parameterType="Item">
@@ -185,4 +204,10 @@
     VALUES
       (#{itemId}, #{productId}, #{listPrice}, #{unitCost}, #{supplierId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{attribute1}, #{isAuction}, #{username2,jdbcType=VARCHAR})
   </insert>
+  
+  <delete id="deleteItem" parameterType="String">
+  DELETE 
+  FROM ITEM
+  WHERE ITEMID = #{itemId}
+  </delete>
 </mapper>
