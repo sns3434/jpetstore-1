@@ -119,8 +119,11 @@
       QTY AS quantity,
       I.ISAUCTION AS isAuction,
       I.DEPOSIT AS deposit,
-      I.USERNAME AS username2,
-      CLOSINGTIME 
+
+      I.USERNAME AS username2 ,
+      I.closingTime AS closingTime,
+      I.timeStatus AS timeStatus
+
     FROM ITEM I, INVENTORY V, PRODUCT P
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.ITEMID = V.ITEMID
