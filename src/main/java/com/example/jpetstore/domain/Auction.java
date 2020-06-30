@@ -13,8 +13,15 @@ public class Auction implements Serializable {
 	private Date biddingDate;
 	private int isSuccessful;
 	private int maxAuctionId;
+	private int biddingAuctionId;
 	
 	
+	public int getBiddingAuctionId() {
+		return biddingAuctionId;
+	}
+	public void setBiddingAuctionId(int biddingAuctionId) {
+		this.biddingAuctionId = biddingAuctionId;
+	}
 	public int getMaxAuctionId() {
 		return maxAuctionId;
 	}

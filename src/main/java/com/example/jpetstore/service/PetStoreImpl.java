@@ -275,4 +275,16 @@ public void deleteItem(String itemId) {
 public String getTimeStatusByBiddingList(String username) {
 	return auctionDao.getTimeStatusByBiddingList(username);
 }
+
+@Override
+public int getAuctionIdByItem(String itemId) {
+	// TODO Auto-generated method stub
+	return auctionDao.getAuctionIdByItem(itemId);
+}
+
+@Override
+public void updateIsSuccessful(Auction auction) {
+	// TODO Auto-generated method stub
+	auctionDao.updateIsSuccessful(auction);
+}
 }

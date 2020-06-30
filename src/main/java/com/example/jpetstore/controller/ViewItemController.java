@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.service.PetStoreFacade;
 import org.json.simple.JSONArray;
@@ -69,6 +70,11 @@ public class ViewItemController {
      }
      else
      {
+    	 
+    	Auction auction = new Auction();
+    	auction.setBiddingAuctionId(petStore.getAuctionIdByItem(itemId));
+    	petStore.updateIsSuccessful(auction);
+    	
         JSONObject deadLine = new JSONObject();
          deadLine.put("closingTime","마감되었습니다.");
          System.out.println("마감");
