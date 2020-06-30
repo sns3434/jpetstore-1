@@ -142,9 +142,9 @@ public class PetStoreImpl implements PetStoreFacade {
 	public List<Product> getProductListByCategory(String categoryId) {
 		return productDao.getProductListByCategory(categoryId);
 	}
-
-	public List<Product> searchProductList(String keywords) {
-		return productDao.searchProductList(keywords);
+	public List<Item> searchItemList(String keywords) {
+		System.out.println("'%"+keywords+"%'");
+		return itemDao.searchItemList(keywords);
 	}
 
 	public Product getProduct(String productId) {
@@ -278,6 +278,18 @@ public void deleteAuctionbyAuctionId(int auctionId) {
 	auctionDao.deleteAuctionbyAuctionId(auctionId);
 	
 }
-  
+
+
+@Override
+public int getAuctionIdByItem(String itemId) {
+	// TODO Auto-generated method stub
+	return auctionDao.getAuctionIdByItem(itemId);
+}
+
+@Override
+public void updateIsSuccessful(Auction auction) {
+	// TODO Auto-generated method stub
+	auctionDao.updateIsSuccessful(auction);
+}
 
 }

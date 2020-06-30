@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.service.PetStoreFacade;
 import org.json.simple.JSONArray;
@@ -42,6 +43,7 @@ public class ViewItemController {
         
     Item item = this.petStore.getItem(itemId); 
     System.out.println(item.getTimeStatus());
+    JSONObject deadLine = new JSONObject();
      if(item.getTimeStatus().equals("OPEN")) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String closeTime = formatter.format(item.getClosingTime());
@@ -62,18 +64,24 @@ public class ViewItemController {
                  , TimeUnit.MILLISECONDS.toMinutes(mill)
                  - TimeUnit.HOURS.toMinutes(hours),secs);
          
-         JSONObject deadLine = new JSONObject();
+        
          deadLine.put("closingTime", diffDays + diff);
          System.out.println(diffDays + diff);
-        return deadLine;
+        
      }
      else
      {
-        JSONObject deadLine = new JSONObject();
-         deadLine.put("closingTime","마감되었습니다.");
-         System.out.println("마감");
-        return deadLine;
+    	  
+           deadLine.put("closingTime","마감되었습니다.");
+           System.out.println("마감"); 
+    	Auction auction = new Auction();
+    	auction.setBiddingAuctionId(petStore.getAuctionIdByItem(itemId));
+    	petStore.updateIsSuccessful(auction);
+    	
+     
+       
      }
+     return deadLine;
      }
     
    
@@ -82,8 +90,17 @@ public class ViewItemController {
      @RequestParam("itemId") String itemId, ModelMap model) throws Exception {
      
      Item item = this.petStore.getItem(itemId); //List<Item> items = new
-     System.out.println("controller:is Auction?"
-     + item); model.put("item", item); model.put("product", item.getProduct());
+     System.out.println("controller:is Auction?"+ item); 
+     model.put("item", item); model.put("product", item.getProduct());
+     if(item.getIsAuction() == 1) {
+    	 System.out.println("auctionID?"+ item.getAuctionId());
+    	 if(item.getAuctionId() != 0) { 
+    	 Auction auction = this.petStore.getAuctionByAuctionId(item.getAuctionId());
+    	 model.put("biddingPrice", auction.getBiddingPrice());
+    	 }else {
+    		 model.put("biddingPrice", item.getListPrice());
+    	 }
+     }
      return "Item";
      
      }
