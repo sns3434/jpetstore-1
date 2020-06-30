@@ -76,7 +76,7 @@ public class PetStoreImpl implements PetStoreFacade {
 	private OrderDao orderDao;
 
 	private EventDao eventDao;
-	@Autowired		// applicationContext.xml占쎈퓠 占쎌젟占쎌벥占쎈쭆 scheduler 揶쏆빘猿쒐몴占� 雅뚯눘�뿯 獄쏆룇�벉
+	@Autowired		// applicationContext.xml�뜝�럥�뱺 �뜝�럩�젧�뜝�럩踰ε뜝�럥彛� scheduler �뤆�룇鍮섊뙼�뮁紐닷뜝占� �썒�슣�닔占쎈엷 �뛾�룇猷뉛옙踰�
 	private ThreadPoolTaskScheduler scheduler;
 
 
@@ -180,27 +180,27 @@ public class PetStoreImpl implements PetStoreFacade {
 public void testScheduler(Date closingTime) {
 		
 		Runnable updateTableRunner = new Runnable() {	
-			// anonymous class 占쎌젟占쎌벥
+			// anonymous class �뜝�럩�젧�뜝�럩踰�
 			@Override
-			public void run() {   // 占쎈뮞�놂옙鴉딅��쑎占쎈퓠 占쎌벥占쎈퉸 沃섎챶�삋占쎌벥 占쎈뱟占쎌젟 占쎈뻻占쎌젎占쎈퓠 占쎈뼄占쎈뻬占쎈쭍 占쎌삂占쎈씜占쎌뱽 占쎌젟占쎌벥				
+			public void run() {   // �뜝�럥裕욑옙�냲�삕辱됰봾占쏙옙�몠�뜝�럥�뱺 �뜝�럩踰ε뜝�럥�돵 亦껋꼶梨띰옙�굥�뜝�럩踰� �뜝�럥諭잌뜝�럩�젧 �뜝�럥六삣뜝�럩�젍�뜝�럥�뱺 �뜝�럥堉꾢뜝�럥六у뜝�럥彛� �뜝�럩�굚�뜝�럥�뵜�뜝�럩諭� �뜝�럩�젧�뜝�럩踰�				
 				Date curTime = new Date();
-				// 占쎈뼄占쎈뻬 占쎈뻻占쎌젎占쎌벥 占쎈뻻揶쏄낯�뱽 占쎌읈占쎈뼎占쎈릭占쎈연 域뱄옙 占쎈뻻揶쏉옙 占쎌뵠占쎌읈占쎌벥 closing time 揶쏅�れ뱽 揶쏅쉴�뮉 event占쎌벥 占쎄맒占쎄묶�몴占� 癰귨옙野껓옙 
+				// �뜝�럥堉꾢뜝�럥六� �뜝�럥六삣뜝�럩�젍�뜝�럩踰� �뜝�럥六삥뤆�룄�궚占쎈굵 �뜝�럩�쓧�뜝�럥堉롥뜝�럥由��뜝�럥�뿰 �윜諭꾩삕 �뜝�럥六삥뤆�룊�삕 �뜝�럩逾졾뜝�럩�쓧�뜝�럩踰� closing time �뤆�룆占썬굦諭� �뤆�룆�돱占쎈츎 event�뜝�럩踰� �뜝�럡留믣뜝�럡臾띰옙紐닷뜝占� �솻洹⑥삕�뇦猿볦삕 
 
-				//주석eventDao.closeEvent(curTime);	// EVENTS 占쎈�믭옙�뵠�뇡遺우벥 占쎌쟿�굜遺얜굡 揶쏄퉮�뻿	
+				//二쇱꽍eventDao.closeEvent(curTime);	// EVENTS �뜝�럥占쎈���삕占쎈턄占쎈눀�겫�슦踰� �뜝�럩�읉占쎄턀�겫�뼔援� �뤆�룄�돫占쎈뼁	
 
-				itemDao.closeEvent(curTime);	// EVENTS 占쎈�믭옙�뵠�뇡遺우벥 占쎌쟿�굜遺얜굡 揶쏄퉮�뻿	
+				itemDao.closeEvent(curTime);	// EVENTS �뜝�럥占쎈���삕占쎈턄占쎈눀�겫�슦踰� �뜝�럩�읉占쎄턀�겫�뼔援� �뤆�룄�돫占쎈뼁	
 
 				System.out.println("updateTableRunner is executed at " + curTime);
 			}
 		};
 		
 
-		//주석HashMap<String, Date> hashMap = new HashMap<String, Date>();
-		//주석hashMap.put("curTime", new Date());			// 占쎌겱占쎌삺 占쎈뻻揶쏉옙: PK 揶쏅�れ몵嚥∽옙 占쎄텢占쎌뒠
-		//주석hashMap.put("closingTime", closingTime);	// 沃섎챶�삋占쎌벥 �넫�굝利� 占쎈뻻揶쏉옙
-		//주석eventDao.insertNewEvent(hashMap);	// EVENTS 占쎈�믭옙�뵠�뇡遺용퓠 占쎌쟿�굜遺얜굡 占쎄땜占쎌뿯
+		//二쇱꽍HashMap<String, Date> hashMap = new HashMap<String, Date>();
+		//二쇱꽍hashMap.put("curTime", new Date());			// �뜝�럩寃긷뜝�럩�궨 �뜝�럥六삥뤆�룊�삕: PK �뤆�룆占썬굦紐드슖�댙�삕 �뜝�럡�뀬�뜝�럩�뮔
+		//二쇱꽍hashMap.put("closingTime", closingTime);	// 亦껋꼶梨띰옙�굥�뜝�럩踰� 占쎈꽞占쎄턁筌앾옙 �뜝�럥六삥뤆�룊�삕
+		//二쇱꽍eventDao.insertNewEvent(hashMap);	// EVENTS �뜝�럥占쎈���삕占쎈턄占쎈눀�겫�슜�뱺 �뜝�럩�읉占쎄턀�겫�뼔援� �뜝�럡�븳�뜝�럩肉�
 
-		// 占쎈뮞�놂옙餓ο옙 占쎄문占쎄쉐: closingTime占쎈퓠 updateTableRunner.run() 筌롫뗄�꺖占쎈굡 占쎈뼄占쎈뻬
+		// �뜝�럥裕욑옙�냲�삕繞벿우삕 �뜝�럡臾멨뜝�럡�뎽: closingTime�뜝�럥�뱺 updateTableRunner.run() 嶺뚮∥�뾼占쎄틬�뜝�럥援� �뜝�럥堉꾢뜝�럥六�
 
 
 		scheduler.schedule(updateTableRunner, closingTime);  
@@ -274,10 +274,14 @@ public void deleteItem(String itemId) {
 	itemDao.deleteItem(itemId);
 
 }
-  
-public String getTimeStatusByBiddingList(String username) {
-	return auctionDao.getTimeStatusByBiddingList(username);
+
+@Override
+public void deleteAuctionbyAuctionId(int auctionId) {
+	// TODO Auto-generated method stub
+	auctionDao.deleteAuctionbyAuctionId(auctionId);
+	
 }
+
 
 @Override
 public void closeAuction(String itemId) {
@@ -296,4 +300,5 @@ public void updateIsSuccessful(Auction auction) {
 	auctionDao.updateIsSuccessful(auction);
 
 }
+
 }

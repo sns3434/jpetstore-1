@@ -88,10 +88,13 @@ public interface PetStoreFacade {
 	//rest
 	void deleteItem(String itemId);
 
+	void deleteAuctionbyAuctionId(int auctionId);
+
 	String getTimeStatusByBiddingList(String username);
 
 	void closeAuction(String itemId);
 	
 	int getAuctionIdByItem(String itemId);
 	void updateIsSuccessful(Auction auction);
+
 }

@@ -11,7 +11,7 @@ public interface AuctionMapper {
 	
 	void insertAuction(Auction auction);
 	
-	void deleteAuctionbyAunctionId(String auctionId);
+	void deleteAuctionbyAuctionId(int auctionId);
 	
 	List <Auction> getAuctionByUsername(String username);
 

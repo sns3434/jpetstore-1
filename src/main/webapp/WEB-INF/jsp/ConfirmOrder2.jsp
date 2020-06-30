@@ -95,8 +95,11 @@
     </tr>
   </table>
   <p>
-    <a href='<c:url value="/shop/confirmOrder2.do"/>'>
-      <img border="0" src="../images/button_continue.gif" alt="" /></a>
+    <%-- <a href='<c:url value="/shop/confirmOrder2.do"/>'>
+      <img border="0" src="../images/button_continue.gif" alt="" /></a> --%>
+     <a href='<c:url value="/shop/confirmOrder2.do">
+		<c:param name="auctionId" value="${auction.auctionId}"/>> 
+      <img border="0" src="../images/button_continue.gif" alt="" /></c:url>'></a>
   </p>
 </div>
 

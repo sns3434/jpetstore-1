@@ -81,8 +81,12 @@
     </tr>
   </table>
   <p>
-    <input type="image" src="../images/button_submit.gif">
+    <!-- <input type="image" src="../images/button_submit.gif"> -->
+    <a href='<c:url value="/shop/confirmOrder2.do">
+		<c:param name="auctionId" value="${auction.auctionId}"/>> 
+      <input type="image" src="../images/button_submit.gif"></c:url>'></a>
   </p>
+  
 </form:form>
 </div>
 
