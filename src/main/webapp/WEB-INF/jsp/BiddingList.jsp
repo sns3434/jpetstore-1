@@ -36,8 +36,16 @@
         </c:if> 
         
         <c:if test="${bid.isSuccessful == 0}">
+        <c:if test="${TimeStatus.equals(\"OPEN\")}">
+        <td>진행중</td>
+        </c:if> 
+        </c:if>
+        
+        <c:if test="${bid.isSuccessful == 0}">
+        <c:if test="${TimeStatus.equals(\"CLOSE\")}">
         <td>마감</td>
-        </c:if>         
+        </c:if> 
+        </c:if>     
         
       </tr>
     </c:forEach>

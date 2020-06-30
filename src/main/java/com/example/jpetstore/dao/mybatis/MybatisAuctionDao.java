@@ -56,4 +56,11 @@ public class MybatisAuctionDao implements AuctionDao {
 		return auctionMapper.getMaxAuctionId(itemId);
 	}
 
+	@Override
+	public String getTimeStatusByBiddingList(String username) {
+		// TODO Auto-generated method stub
+		return auctionMapper.getTimeStatusByBiddingList(username);
+		
+	}
+
 }

@@ -272,4 +272,7 @@ public void deleteItem(String itemId) {
 
 }
   
+public String getTimeStatusByBiddingList(String username) {
+	return auctionDao.getTimeStatusByBiddingList(username);
+}
 }
