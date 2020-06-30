@@ -163,6 +163,7 @@ setInterval(
     </tr>
     <tr>
      <c:if test="${item.isAuction == 0}">
+    	 
       <td>
      
         <a href='<c:url value="/shop/addItemToCart.do">
@@ -172,18 +173,19 @@ setInterval(
       </td>
        </c:if>
        <c:if test="${item.isAuction == 1}">
+       <c:if test="${item.timeStatus.equals(\"OPEN\")}">
         <td>
         <a href='<c:url value="/shop/addItemToDepositCart.do">
           <c:param name="workingItemId" value="${item.itemId}"/></c:url>'>
              경매 참여(보증금계산)</a>
-           </td> </c:if>
+           </td> </c:if></c:if>
     </tr>
     <tr>
       <td>
-     
         <a href='<c:url value="/shop/viewSellerItem.do">
           <c:param name="username2" value="${item.username2}"/></c:url>'>
           go to seller page</a>
+           
            
       </td>
     </tr>

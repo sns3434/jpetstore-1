@@ -36,7 +36,7 @@ public interface PetStoreFacade {
 
 	List<Product> getProductListByCategory(String categoryId);
 
-	List<Product> searchProductList(String keywords);
+	List<Item> searchItemList(String keywords);
 
 	Product getProduct(String productId);
 
@@ -46,7 +46,6 @@ public interface PetStoreFacade {
 	Item getItem(String itemId);
 
 	boolean isItemInStock(String itemId);
-
 
 	void insertOrder(Order order);
 

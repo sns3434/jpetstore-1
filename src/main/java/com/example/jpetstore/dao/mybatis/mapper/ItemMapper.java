@@ -58,11 +58,11 @@ public interface ItemMapper {
   List<Item> getAuctionItemListByUsername(String username);
   
   void updateAuctionId(Auction auction);
-  
 
 void updateItem(Item item);
 
 void deleteItem(String itemId);
+List<Item> searchItemList(String string);
 
 
 }
