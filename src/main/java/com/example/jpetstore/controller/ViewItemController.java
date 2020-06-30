@@ -73,6 +73,8 @@ public class ViewItemController {
         JSONObject deadLine = new JSONObject();
          deadLine.put("closingTime","마감되었습니다.");
          System.out.println("마감");
+         System.out.println(itemId);
+         petStore.closeAuction(itemId);
         return deadLine;
      }
      }

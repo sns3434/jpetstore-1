@@ -1,5 +1,6 @@
 package com.example.jpetstore.dao.mybatis.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.jpetstore.domain.Auction;
@@ -19,4 +20,8 @@ public interface AuctionMapper {
 	int getMaxAuctionId(String itemId);
 	
 	String getTimeStatusByBiddingList(String username);
+	
+	  void closeEvent(String itemId);
+
+	void closeAuction(String itemId);
 }

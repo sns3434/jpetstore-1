@@ -275,4 +275,10 @@ public void deleteItem(String itemId) {
 public String getTimeStatusByBiddingList(String username) {
 	return auctionDao.getTimeStatusByBiddingList(username);
 }
+
+@Override
+public void closeAuction(String itemId) {
+	// TODO Auto-generated method stub
+	auctionDao.closeAuction(itemId);
+}
 }

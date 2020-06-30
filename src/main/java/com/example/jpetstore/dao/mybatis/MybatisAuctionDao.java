@@ -63,4 +63,10 @@ public class MybatisAuctionDao implements AuctionDao {
 		
 	}
 
+	@Override
+	public void closeAuction(String itemId) {
+		// TODO Auto-generated method stub
+		auctionMapper.closeAuction(itemId);
+	}
+
 }

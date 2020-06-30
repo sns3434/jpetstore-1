@@ -9,8 +9,8 @@ import com.example.jpetstore.domain.Order;
 
 public interface AuctionDao {
 	/*
-	 * 留덉씠�럹�씠吏��뿉 �굹�쓽 �엯李곕궡�뿭(getAuctionListByUserId)
-	 * �삦�뀡�뿉�꽌 �븘�씠�뀥db�쑝濡� 媛�寃� 媛깆떊
+	 * 筌띾뜆�뵠占쎈읂占쎌뵠筌욑옙占쎈퓠 占쎄돌占쎌벥 占쎌뿯筌↔퀡沅∽옙肉�(getAuctionListByUserId)
+	 * 占쎌궑占쎈�∽옙肉됵옙苑� 占쎈툡占쎌뵠占쎈�쩮b占쎌몵嚥∽옙 揶쏉옙野껓옙 揶쏄퉮�뻿
 	 * insert, update, (delete), 
 	 *  
 	 *  
@@ -25,5 +25,7 @@ public interface AuctionDao {
 	 int getMaxAuctionId(String itemId);
 
 	String getTimeStatusByBiddingList(String username);
+	
+	void closeAuction(String itemId);
 }
 
