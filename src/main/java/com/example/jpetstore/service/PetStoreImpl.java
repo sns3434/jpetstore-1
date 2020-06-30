@@ -283,6 +283,7 @@ public String getTimeStatusByBiddingList(String username) {
 public void closeAuction(String itemId) {
 	// TODO Auto-generated method stub
 	auctionDao.closeAuction(itemId);
+}
 
 public int getAuctionIdByItem(String itemId) {
 	// TODO Auto-generated method stub

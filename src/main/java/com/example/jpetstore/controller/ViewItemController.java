@@ -50,9 +50,9 @@ public class ViewItemController {
         Date endDate = formatter.parse(closeTime);
         Date now = new Date();
         long mill = Math.abs(endDate.getTime() - now.getTime());
-      // 시로 변환 ( millisecond -> hour 로 변환 ) 
+      // �떆濡� 蹂��솚 ( millisecond -> hour 濡� 蹂��솚 ) 
          long hours = TimeUnit.MILLISECONDS.toHours(mill);
-         // 일로 변환 ( hour -> day 로 변환 )
+         // �씪濡� 蹂��솚 ( hour -> day 濡� 蹂��솚 )
          long days = TimeUnit.HOURS.toDays(hours); 
          long mins =TimeUnit.MILLISECONDS.toMinutes(mill)
                  - TimeUnit.HOURS.toMinutes(hours);
@@ -71,7 +71,6 @@ public class ViewItemController {
      }
      else
      {
-        JSONObject deadLine = new JSONObject();
          deadLine.put("closingTime","마감되었습니다.");
          System.out.println("마감");
          System.out.println(itemId);
