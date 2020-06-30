@@ -120,7 +120,8 @@
       I.DEPOSIT AS deposit,
       I.USERNAME AS username2,
       I.TIMESTATUS as timeStatus,
-      I.CLOSINGTIME as closingTime
+      I.CLOSINGTIME as closingTime,
+      I.AUCTIONID as auctionId
     FROM ITEM I, INVENTORY V, PRODUCT P
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.ITEMID = V.ITEMID
