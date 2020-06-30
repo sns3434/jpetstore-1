@@ -58,19 +58,18 @@ function categoryChange(e) {
 
       <td> <input name="keyword" size="14" />
       "yyyy-MM-dd HH:mm" 형식으로 미래의 시각을 입력하세요.
-      <%--   <form:errors path="order.expiryDate" /></td> --%>
+      <form:errors path="auctionItem.closingTime" /></td>
 
     </tr>
     <tr>
       <td>카테고리 선택  :</td>
       <td><form:select onchange="categoryChange(this)" id = "category" path="auctionItem.product.categoryId" items="${categories}" /> 
-      
-       <%--  <form:errors path="order.billToFirstName" /></td> --%>
+      <form:errors path="auctionItem.product.categoryId" /></td>
     </tr>
     <tr>
       <td>상세 카테고리 선택  :</td>
       <td><form:select path="auctionItem.productId" id = "good"/>
-      <%--   <form:errors path="order.billToLastName" /></td> --%>
+		 <form:errors path="auctionItem.productId" /></td>
     </tr>
     <tr>
       <td>부가 설명 :</td>

@@ -17,33 +17,33 @@
     <tr>
       <td>상품 이름:</td>
       <td><form:input path="item.itemId" />
-       <%--  <form:errors path="order.cardType" /></td> --%>
+       <form:errors path="item.itemId" /></td>
     </tr>
     <tr>
       <td>가격:</td>
       <td><form:input path="item.listPrice" /> 
-       <%--  <form:errors path="order.creditCard" /></td> --%>
+       <form:errors path="item.listPrice" /></td>
     </tr>
     <tr>
     	<td>단위 가격:</td>
     	<td><form:input path="item.unitCost" /> 
-       <%--  <form:errors path="order.creditCard" /></td> --%>
+    <form:errors path="item.unitCost" /></td>
     </tr>
 
     <tr>
       <td>카테고리 선택:</td>
       <td><form:select path="item.product.categoryId" items="${categories}" /> 
-       <%--  <form:errors path="order.billToFirstName" /></td> --%>
+       <form:errors path="item.product.categoryId" /></td>
     </tr>
     <tr>
       <td>상세 카테고리 선택:</td>
       <td><form:select path="item.productId" items="${products}" />
-      <%--   <form:errors path="order.billToLastName" /></td> --%>
+      <form:errors path="item.productId" /></td>
     </tr>
     <tr>
       <td>부가 설명:</td>
       <td><form:input path="item.attribute1" />
-        <%-- <form:errors path="order.billAddress2" /></td> --%>
+        <form:errors path="item.attribute1" /></td>
     </tr>
 
   </table>
