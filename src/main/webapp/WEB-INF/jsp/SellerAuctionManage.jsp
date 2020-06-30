@@ -28,7 +28,7 @@
            <c:param name="itemId2" value="${item.itemId}"/></c:url>'> 
              	상품 수정 </a></td>
            <td>
-          <a href='<c:url value="/shop/deleteItem.do">
+          <a href='<c:url value="/shop/deleteItem.do?">
            <c:param name="itemId3" value="${item.itemId}"/></c:url>'> 
              	상품 삭제 </a></td>
         </tr>

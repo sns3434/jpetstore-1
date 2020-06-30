@@ -3,6 +3,7 @@ package com.example.jpetstore.service;
 import java.util.Date;
 import java.util.List;
 
+import com.example.jpetstore.controller.DeleteItem;
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Category;
@@ -84,6 +85,7 @@ public interface PetStoreFacade {
 
 	void updateItem(Item item);
 
+	//rest
 	void deleteItem(String itemId);
 
 	String getTimeStatusByBiddingList(String username);
