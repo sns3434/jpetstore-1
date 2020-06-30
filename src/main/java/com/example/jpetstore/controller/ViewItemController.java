@@ -43,6 +43,7 @@ public class ViewItemController {
         
     Item item = this.petStore.getItem(itemId); 
     System.out.println(item.getTimeStatus());
+    JSONObject deadLine = new JSONObject();
      if(item.getTimeStatus().equals("OPEN")) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String closeTime = formatter.format(item.getClosingTime());
@@ -63,23 +64,24 @@ public class ViewItemController {
                  , TimeUnit.MILLISECONDS.toMinutes(mill)
                  - TimeUnit.HOURS.toMinutes(hours),secs);
          
-         JSONObject deadLine = new JSONObject();
+        
          deadLine.put("closingTime", diffDays + diff);
          System.out.println(diffDays + diff);
-        return deadLine;
+        
      }
      else
      {
-    	 
+    	  
+           deadLine.put("closingTime","마감되었습니다.");
+           System.out.println("마감"); 
     	Auction auction = new Auction();
     	auction.setBiddingAuctionId(petStore.getAuctionIdByItem(itemId));
     	petStore.updateIsSuccessful(auction);
     	
-        JSONObject deadLine = new JSONObject();
-         deadLine.put("closingTime","마감되었습니다.");
-         System.out.println("마감");
-        return deadLine;
+     
+       
      }
+     return deadLine;
      }
     
    

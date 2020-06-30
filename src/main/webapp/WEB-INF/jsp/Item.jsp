@@ -37,12 +37,13 @@ setInterval(
          dataType : "json",
          
          success: function(data){
-            var time = document.getElementById("time");
-            
-              ;            
+            var time = document.getElementById("time");    
+            var a = document.getElementById("a");          
          //   $("#item").append(content);
          
             time.innerHTML=data.closingTime;
+           if(data.closingTime=="마감되었습니다.")
+           	 	a.innerHTML=data.closingTime; 
             }
 
          })
@@ -51,17 +52,7 @@ setInterval(
 
 </script>
 
-        <script>
-                var date = ;
-                var nowDate = new Date(parseInt(date.substr(6)));
-                var result = "";
-                result += nowDate.format("UTC:yyyy-mm-dd'T'HH:MM:ss'Z'") + " : UTC:yyyy-mm-dd'T'HH:MM:ss'Z'<br/>";
-
-                $(function() {
-                        $("#lblDate").html(result);
-                });
-        </script>
-
+       
  </head>
 
 <body bgcolor="white">
@@ -173,12 +164,12 @@ setInterval(
       </td>
        </c:if>
        <c:if test="${item.isAuction == 1}">
-       <c:if test="${item.timeStatus.equals(\"OPEN\")}">
-        <td>
+      
+        <td id = a>
         <a href='<c:url value="/shop/addItemToDepositCart.do">
           <c:param name="workingItemId" value="${item.itemId}"/></c:url>'>
              경매 참여(보증금계산)</a>
-           </td> </c:if></c:if>
+           </td> </c:if>
     </tr>
     <tr>
       <td>
