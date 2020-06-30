@@ -11,9 +11,23 @@ public class Auction implements Serializable {
 	private String username;
 	private double biddingPrice;
 	private Date biddingDate;
-	private boolean isSuccessful;
+	private int isSuccessful;
+	private int maxAuctionId;
+	private int biddingAuctionId;
 	
 	
+	public int getBiddingAuctionId() {
+		return biddingAuctionId;
+	}
+	public void setBiddingAuctionId(int biddingAuctionId) {
+		this.biddingAuctionId = biddingAuctionId;
+	}
+	public int getMaxAuctionId() {
+		return maxAuctionId;
+	}
+	public void setMaxAuctionId(int maxAuctionId) {
+		this.maxAuctionId = maxAuctionId;
+	}
 	public int getAuctionId() {
 		return auctionId;
 	}
@@ -44,13 +58,11 @@ public class Auction implements Serializable {
 	public void setBiddingDate(Date biddingDate) {
 		this.biddingDate = biddingDate;
 	}
-	public boolean isSuccessful() {
+	public int getIsSuccessful() {
 		return isSuccessful;
 	}
-	public void setSuccessful(boolean isSuccessful) {
+	public void setIsSuccessful(int isSuccessful) {
 		this.isSuccessful = isSuccessful;
 	}
-	
-	
 
 }

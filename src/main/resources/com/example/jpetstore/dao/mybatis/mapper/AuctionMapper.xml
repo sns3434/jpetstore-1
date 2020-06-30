@@ -5,12 +5,42 @@
   <cache />
 
   <select id="getAuctionByUsername" resultType="Auction">
-    SELECT *
+    SELECT AUCTIONID, ITEMID, USERNAME, BIDDINGDATE, BIDDINGPRICE, ISSUCCESSFUL
     FROM AUCTION
-    WHERE USERNAME = #{value}
+    WHERE USERNAME = #{username}
+  </select>
+  
+  <select id="getTimeStatusByBiddingList" resultType="String">
+    SELECT ITEM.TIMESTATUS AS timeStatus, AUCTION.AUCTIONID
+    FROM AUCTION, ITEM
+    WHERE AUCTION.ITEMID = ITEM.ITEMID AND AUCTION.USERNAME = #{username}
+  </select>
+  
+  <select id="getAuctionByAuctionId" resultType="Auction">
+    SELECT AUCTIONID, ITEMID, USERNAME, BIDDINGPRICE
+    FROM AUCTION
+    WHERE AUCTIONID = #{auctionId}
   </select>
 
-
+  <select id="getMaxAuctionId" resultType="int">
+  	SELECT AUCTIONID
+  	FROM AUCTION
+  	WHERE BIDDINGPRICE = (SELECT MAX(BIDDINGPRICE) FROM AUCTION WHERE ITEMID=#{itemId})
+  	AND ITEMID=#{itemId}
+  </select>
+  
+  <select id="getAuctionIdByItem" resultType="int">
+  	SELECT AUCTION.AUCTIONID
+  	FROM AUCTION, ITEM
+  	WHERE ITEM.TIMESTATUS = 'CLOSE' AND ITEM.AUCTIONID = AUCTION.AUCTIONID AND ITEM.ITEMID = #{itemId}
+  </select>
+  
+  <update id="updateIsSuccessful">
+  	UPDATE AUCTION
+  	SET ISSUCCESSFUL = 1
+  	WHERE AUCTIONID = #{biddingAuctionId}
+  </update>
+  
   <update id="updateBiddingPrice">
     UPDATE AUCTION 
     SET BIDDINGPRICE = #{biddingPrice}
@@ -22,7 +52,7 @@
   		SELECT auctionnum.nextval AS auctionId FROM DUAL
   	</selectKey>
     INSERT INTO AUCTION (AUCTIONID, ITEMID, USERNAME, BIDDINGPRICE, BIDDINGDATE, ISSUCCESSFUL)
-    VALUES (#{auctionId}, #{itemId}, #{username}, #{biddingPrice}, #{biddingDate}, #{isSuccessful})
+    VALUES (#{auctionId}, #{itemId}, #{username}, #{biddingPrice}, SYSDATE, #{isSuccessful})
   </insert>
 
   <delete id="deleteAuctionbyItemId">

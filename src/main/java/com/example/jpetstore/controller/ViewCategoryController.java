@@ -35,7 +35,7 @@ public class ViewCategoryController {
 			) throws Exception {
 		Category category = this.petStore.getCategory(categoryId);
 		PagedListHolder<Product> productList = new PagedListHolder<Product>(this.petStore.getProductListByCategory(categoryId));
-		productList.setPageSize(4);
+		productList.setPageSize(5);
 		model.put("category", category);
 		model.put("productList", productList);
 		return "Category";
@@ -48,7 +48,7 @@ public class ViewCategoryController {
 			@ModelAttribute("productList") PagedListHolder<Product> productList,
 			BindingResult result) throws Exception {
 		if (category == null || productList == null) {
-			throw new IllegalStateException("Cannot find pre-loaded category and product list");
+			throw new IllegalStateException("Cannot find pre-loaded page and productList");
 		}
 		if ("next".equals(page)) { productList.nextPage(); }
 		else if ("previous".equals(page)) { productList.previousPage(); }

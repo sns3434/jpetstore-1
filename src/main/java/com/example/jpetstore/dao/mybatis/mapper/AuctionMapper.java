@@ -13,4 +13,14 @@ public interface AuctionMapper {
 	void deleteAuctionbyAunctionId(String auctionId);
 	
 	List <Auction> getAuctionByUsername(String username);
+
+	Auction getAuctionByAuctionId(int auctionId);
+	
+	int getMaxAuctionId(String itemId);
+	
+	String getTimeStatusByBiddingList(String username);
+
+	void updateIsSuccessful(Auction auction);
+
+	int getAuctionIdByItem(String itemId);
 }
