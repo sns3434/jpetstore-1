@@ -49,11 +49,10 @@
 </form:form>
 <p>
   <h3><b><a href='<c:url value="/shop/listOrders.do"/>'>My Orders</a></b></h3>
-</p>
-<a href="<c:url value="/shop/biddingList.do"/>">Bidding List</a>
+<p>
+  <h3><b><a href="<c:url value="/shop/biddingList.do"/>">Bidding List</a></b></h3>
 <p>
 <h3><b><a href='<c:url value="/shop/sellerInform.do"/>'>Seller Page</a></b></h3>
-</p>
 </div>
 
 <%@ include file="IncludeBottom.jsp"%>

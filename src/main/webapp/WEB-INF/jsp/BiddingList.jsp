@@ -32,6 +32,14 @@
           <b><a href='<c:url value="/shop/checkout2.do?auctionId=auctionId">
         	<c:param name="auctionId" value="${bid.auctionId}"/></c:url>'>
         	낙찰
+        	<%-- <script>
+			var result = confirm("낙찰 결제하시겠습니까?");
+	
+			if(result)
+				alert("낙찰 결제 완료되었습니다.");		
+
+			</script>
+			<jsp:forward page = "/BiddingList.jsp"/>; --%>
         	</a></b></td>
         </c:if> 
         

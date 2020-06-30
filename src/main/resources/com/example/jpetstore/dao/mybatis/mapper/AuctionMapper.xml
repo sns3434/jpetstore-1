@@ -43,7 +43,7 @@
     VALUES (#{auctionId}, #{itemId}, #{username}, #{biddingPrice}, SYSDATE, #{isSuccessful}, 'OPEN')
   </insert>
 
-  <delete id="deleteAuctionbyItemId">
+  <delete id="deleteAuctionbyAuctionId">
     DELETE AUCTION
     WHERE AUCTIONID = #{auctionId}
   </delete>

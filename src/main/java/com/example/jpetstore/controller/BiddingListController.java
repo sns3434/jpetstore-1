@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,15 +41,17 @@ public class BiddingListController {
 		this.petStore = petStore;
 	}
 	
+	@Value("index")
+	private String successViewName;
+	
 	@RequestMapping("/shop/biddingList.do")
-	public ModelAndView handleRequest(@ModelAttribute("userSession") UserSession userSession, 
-			@ModelAttribute("auction") Auction auction) throws Exception {
+	public ModelAndView handleRequest(@ModelAttribute("userSession") UserSession userSession
+			) throws Exception {
 		String username = userSession.getAccount().getUsername();
 		System.out.println(username);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("BiddingList", petStore.getAuctionByUsername(username));
 		mv.setViewName("BiddingList");	
-		System.out.println("timeStatus: " + auction.getTimeStatus());
 		return mv;
 	}
 
@@ -120,12 +123,27 @@ public class BiddingListController {
 	@RequestMapping("/shop/confirmOrder2.do")
 	protected ModelAndView confirmOrder(
 			@ModelAttribute("orderForm") OrderForm orderForm, 
+			@RequestParam("auctionId") int auctionId,
 			SessionStatus status) {
 		petStore.insertOrder(orderForm.getOrder());
-		ModelAndView mav = new ModelAndView("ViewOrder");
+		ModelAndView mav = new ModelAndView("ViewBiddingList");
 		mav.addObject("order", orderForm.getOrder());
 		mav.addObject("message", "Thank you, your order has been submitted.");
-		status.setComplete();  // remove sessionCart and orderForm from session
+		System.out.println("ªË¡¶: "+ auctionId);
+		petStore.deleteAuctionbyAuctionId(auctionId);
+	 // remove sessionCart and orderForm from session
 		return mav;
 	}
+	
+	/*
+	 * @RequestMapping("/shop/biddingList2.do") public String handleRequest2(
+	 * 
+	 * @ModelAttribute("auction") Auction auction, SessionStatus status) throws
+	 * Exception { System.out.println(auction.getAuctionId());
+	 * petStore.deleteAuctionbyAuctionId(auction.getAuctionId());
+	 * status.setComplete(); return successViewName;
+	 * 
+	 * }
+	 */
+	
 }
