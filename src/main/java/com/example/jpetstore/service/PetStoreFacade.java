@@ -87,4 +87,5 @@ public interface PetStoreFacade {
 
 	void deleteItem(String itemId);
 
+	String getTimeStatusByBiddingList(String username);
 }

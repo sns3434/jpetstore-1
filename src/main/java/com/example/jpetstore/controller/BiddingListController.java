@@ -44,7 +44,14 @@ public class BiddingListController {
 	public ModelAndView handleRequest(@ModelAttribute("userSession") UserSession userSession) throws Exception {
 		String username = userSession.getAccount().getUsername();
 		System.out.println(username);
-		return new ModelAndView("BiddingList", "BiddingList", petStore.getAuctionByUsername(username));
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("BiddingList", petStore.getAuctionByUsername(username));
+		//auction에 time status 만들기
+		mv.addObject("TimeStatus", petStore.getTimeStatusByBiddingList(username));
+		mv.setViewName("BiddingList");	
+		System.out.println("timestatus: " + petStore.getTimeStatusByBiddingList(username));
+		
+		return mv;
 	}
 
 	@RequestMapping("/shop/checkout2.do")

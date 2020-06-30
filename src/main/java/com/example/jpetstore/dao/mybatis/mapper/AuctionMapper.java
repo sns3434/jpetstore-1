@@ -17,4 +17,6 @@ public interface AuctionMapper {
 	Auction getAuctionByAuctionId(int auctionId);
 	
 	int getMaxAuctionId(String itemId);
+	
+	String getTimeStatusByBiddingList(String username);
 }

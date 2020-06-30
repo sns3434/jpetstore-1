@@ -10,6 +10,12 @@
     WHERE USERNAME = #{username}
   </select>
   
+  <select id="getTimeStatusByBiddingList" resultType="String">
+    SELECT ITEM.TIMESTATUS AS timeStatus, AUCTION.AUCTIONID
+    FROM AUCTION, ITEM
+    WHERE AUCTION.ITEMID = ITEM.ITEMID AND AUCTION.USERNAME = #{username}
+  </select>
+  
   <select id="getAuctionByAuctionId" resultType="Auction">
     SELECT AUCTIONID, ITEMID, USERNAME, BIDDINGPRICE
     FROM AUCTION
