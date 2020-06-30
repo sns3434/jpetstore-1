@@ -8,6 +8,7 @@
 <form:form modelAttribute="orderForm" action="${targetUrl}" method="post">
   <form:errors cssClass="error" /><br><br>
 
+  <h2>Successful Bid Order</h2>
   <table class="n13">
     <tr>
       <td colspan="2">

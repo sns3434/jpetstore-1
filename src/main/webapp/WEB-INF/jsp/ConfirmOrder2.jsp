@@ -15,7 +15,7 @@
   <table class="n13">
     <tr>
       <td align="center" colspan="2">
-        <font size="4"><b>Order</b></font><br />
+        <font size="4"><b>Successful Bid Order</b></font><br />
         <font size="3">
           <b><fmt:formatDate value="${orderForm.order.orderDate}" 
             pattern="yyyy/MM/dd hh:mm:ss" /></b></font>
