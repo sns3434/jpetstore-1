@@ -29,6 +29,18 @@
   	AND ITEMID=#{itemId}
   </select>
   
+  <select id="getAuctionIdByItem" resultType="int">
+  	SELECT AUCTION.AUCTIONID
+  	FROM AUCTION, ITEM
+  	WHERE ITEM.TIMESTATUS = 'CLOSE' AND ITEM.AUCTIONID = AUCTION.AUCTIONID AND ITEM.ITEMID = #{itemId}
+  </select>
+  
+  <update id="updateIsSuccessful">
+  	UPDATE AUCTION
+  	SET ISSUCCESSFUL = 1
+  	WHERE AUCTIONID = #{biddingAuctionId}
+  </update>
+  
   <update id="updateBiddingPrice">
     UPDATE AUCTION 
     SET BIDDINGPRICE = #{biddingPrice}
