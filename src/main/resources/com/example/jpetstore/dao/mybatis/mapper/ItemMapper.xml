@@ -173,6 +173,7 @@
      WHERE CLOSINGTIME <= #{curTime} AND ISAUCTION = 1
     ]]>
   </update>
+ 
 
   <select id="getIsAuction" resultType="int">
   	SELECT ISAUCTION

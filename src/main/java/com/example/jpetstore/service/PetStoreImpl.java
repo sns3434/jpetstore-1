@@ -280,6 +280,10 @@ public String getTimeStatusByBiddingList(String username) {
 }
 
 @Override
+public void closeAuction(String itemId) {
+	// TODO Auto-generated method stub
+	auctionDao.closeAuction(itemId);
+
 public int getAuctionIdByItem(String itemId) {
 	// TODO Auto-generated method stub
 	return auctionDao.getAuctionIdByItem(itemId);
@@ -289,5 +293,6 @@ public int getAuctionIdByItem(String itemId) {
 public void updateIsSuccessful(Auction auction) {
 	// TODO Auto-generated method stub
 	auctionDao.updateIsSuccessful(auction);
+
 }
 }

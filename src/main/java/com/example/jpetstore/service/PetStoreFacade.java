@@ -89,6 +89,8 @@ public interface PetStoreFacade {
 	void deleteItem(String itemId);
 
 	String getTimeStatusByBiddingList(String username);
+
+	void closeAuction(String itemId);
 	
 	int getAuctionIdByItem(String itemId);
 	void updateIsSuccessful(Auction auction);
