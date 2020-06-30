@@ -36,14 +36,14 @@
         </c:if> 
         
         <c:if test="${bid.isSuccessful == 0}">
-        <c:if test="${TimeStatus.equals(\"OPEN\")}">
+        <c:if test="${bid.timeStatus.equals(\"OPEN\")}">
         <td>진행중</td>
         </c:if> 
         </c:if>
         
         <c:if test="${bid.isSuccessful == 0}">
-        <c:if test="${TimeStatus.equals(\"CLOSE\")}">
-        <td>마감</td>
+        <c:if test="${bid.timeStatus.equals(\"CLOSE\")}">
+        <td>환불</td> <!-- 환불하시겠습니까? 폼 만들기 -->
         </c:if> 
         </c:if>     
         

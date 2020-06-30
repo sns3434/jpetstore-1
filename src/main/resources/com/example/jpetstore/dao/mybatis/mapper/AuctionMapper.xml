@@ -5,16 +5,16 @@
   <cache />
 
   <select id="getAuctionByUsername" resultType="Auction">
-    SELECT AUCTIONID, ITEMID, USERNAME, BIDDINGDATE, BIDDINGPRICE, ISSUCCESSFUL
+    SELECT AUCTIONID, ITEMID, USERNAME, BIDDINGDATE, BIDDINGPRICE, ISSUCCESSFUL, TIMESTATUS
     FROM AUCTION
     WHERE USERNAME = #{username}
   </select>
   
-  <select id="getTimeStatusByBiddingList" resultType="String">
+  <!-- <select id="getTimeStatusByBiddingList" resultType="String">
     SELECT ITEM.TIMESTATUS AS timeStatus, AUCTION.AUCTIONID
     FROM AUCTION, ITEM
     WHERE AUCTION.ITEMID = ITEM.ITEMID AND AUCTION.USERNAME = #{username}
-  </select>
+  </select> -->
   
   <select id="getAuctionByAuctionId" resultType="Auction">
     SELECT AUCTIONID, ITEMID, USERNAME, BIDDINGPRICE
@@ -39,8 +39,8 @@
   	<selectKey keyProperty = "auctionId" resultType = "int" order = "BEFORE">
   		SELECT auctionnum.nextval AS auctionId FROM DUAL
   	</selectKey>
-    INSERT INTO AUCTION (AUCTIONID, ITEMID, USERNAME, BIDDINGPRICE, BIDDINGDATE, ISSUCCESSFUL)
-    VALUES (#{auctionId}, #{itemId}, #{username}, #{biddingPrice}, SYSDATE, #{isSuccessful})
+    INSERT INTO AUCTION (AUCTIONID, ITEMID, USERNAME, BIDDINGPRICE, BIDDINGDATE, ISSUCCESSFUL, TIMESTATUS)
+    VALUES (#{auctionId}, #{itemId}, #{username}, #{biddingPrice}, SYSDATE, #{isSuccessful}, 'OPEN')
   </insert>
 
   <delete id="deleteAuctionbyItemId">
