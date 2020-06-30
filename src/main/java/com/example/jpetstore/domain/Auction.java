@@ -13,8 +13,16 @@ public class Auction implements Serializable {
 	private Date biddingDate;
 	private int isSuccessful;
 	private int maxAuctionId;
+	private String timeStatus;
+	private int biddingAuctionId;
 	
 	
+	public int getBiddingAuctionId() {
+		return biddingAuctionId;
+	}
+	public void setBiddingAuctionId(int biddingAuctionId) {
+		this.biddingAuctionId = biddingAuctionId;
+	}
 	public int getMaxAuctionId() {
 		return maxAuctionId;
 	}
@@ -56,6 +64,12 @@ public class Auction implements Serializable {
 	}
 	public void setIsSuccessful(int isSuccessful) {
 		this.isSuccessful = isSuccessful;
+	}
+	public String getTimeStatus() {
+		return timeStatus;
+	}
+	public void setTimeStatus(String timeStatus) {
+		this.timeStatus = timeStatus;
 	}
 
 }

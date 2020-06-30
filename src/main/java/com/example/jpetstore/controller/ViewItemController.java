@@ -43,15 +43,16 @@ public class ViewItemController {
         
     Item item = this.petStore.getItem(itemId); 
     System.out.println(item.getTimeStatus());
+    JSONObject deadLine = new JSONObject();
      if(item.getTimeStatus().equals("OPEN")) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String closeTime = formatter.format(item.getClosingTime());
         Date endDate = formatter.parse(closeTime);
         Date now = new Date();
         long mill = Math.abs(endDate.getTime() - now.getTime());
-      // Ω√∑Œ ∫Ø»Ø ( millisecond -> hour ∑Œ ∫Ø»Ø ) 
+      // ÏãúÎ°ú Î≥ÄÌôò ( millisecond -> hour Î°ú Î≥ÄÌôò ) 
          long hours = TimeUnit.MILLISECONDS.toHours(mill);
-         // ¿œ∑Œ ∫Ø»Ø ( hour -> day ∑Œ ∫Ø»Ø )
+         // ÏùºÎ°ú Î≥ÄÌôò ( hour -> day Î°ú Î≥ÄÌôò )
          long days = TimeUnit.HOURS.toDays(hours); 
          long mins =TimeUnit.MILLISECONDS.toMinutes(mill)
                  - TimeUnit.HOURS.toMinutes(hours);
@@ -63,20 +64,24 @@ public class ViewItemController {
                  , TimeUnit.MILLISECONDS.toMinutes(mill)
                  - TimeUnit.HOURS.toMinutes(hours),secs);
          
-         JSONObject deadLine = new JSONObject();
+        
          deadLine.put("closingTime", diffDays + diff);
          System.out.println(diffDays + diff);
-        return deadLine;
+        
      }
      else
      {
         JSONObject deadLine = new JSONObject();
-         deadLine.put("closingTime","∏∂∞®µ«æ˙Ω¿¥œ¥Ÿ.");
-         System.out.println("∏∂∞®");
+         deadLine.put("closingTime","ÎßàÍ∞êÎêòÏóàÏäµÎãàÎã§.");
+         System.out.println("ÎßàÍ∞ê");
          System.out.println(itemId);
          petStore.closeAuction(itemId);
-        return deadLine;
+       
+         Auction auction = new Auction();
+    	auction.setBiddingAuctionId(petStore.getAuctionIdByItem(itemId));
+    	petStore.updateIsSuccessful(auction);
      }
+     return deadLine;
      }
     
    

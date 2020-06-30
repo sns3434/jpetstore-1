@@ -27,5 +27,10 @@ public interface AuctionDao {
 	String getTimeStatusByBiddingList(String username);
 	
 	void closeAuction(String itemId);
+
+	void updateIsSuccessful(Auction auction);
+
+	int getAuctionIdByItem(String itemId);
+
 }
 

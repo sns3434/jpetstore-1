@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.jpetstore.controller.DeleteItem;
 import com.example.jpetstore.dao.AccountDao;
 import com.example.jpetstore.dao.AuctionDao;
 import com.example.jpetstore.dao.CategoryDao;
@@ -142,9 +144,9 @@ public class PetStoreImpl implements PetStoreFacade {
 	public List<Product> getProductListByCategory(String categoryId) {
 		return productDao.getProductListByCategory(categoryId);
 	}
-
-	public List<Product> searchProductList(String keywords) {
-		return productDao.searchProductList(keywords);
+	public List<Item> searchItemList(String keywords) {
+		System.out.println("'%"+keywords+"%'");
+		return itemDao.searchItemList(keywords);
 	}
 
 	public Product getProduct(String productId) {
@@ -265,6 +267,7 @@ public void updateItem(Item item) {
 	itemDao.updateItem(item);
 }
 
+//rest
 @Override
 public void deleteItem(String itemId) {
 	// TODO Auto-generated method stub
@@ -280,5 +283,16 @@ public String getTimeStatusByBiddingList(String username) {
 public void closeAuction(String itemId) {
 	// TODO Auto-generated method stub
 	auctionDao.closeAuction(itemId);
+
+public int getAuctionIdByItem(String itemId) {
+	// TODO Auto-generated method stub
+	return auctionDao.getAuctionIdByItem(itemId);
+}
+
+@Override
+public void updateIsSuccessful(Auction auction) {
+	// TODO Auto-generated method stub
+	auctionDao.updateIsSuccessful(auction);
+
 }
 }

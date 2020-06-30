@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
+import com.example.jpetstore.domain.Product;
 
 public interface ItemDao {
 
@@ -22,13 +23,11 @@ public interface ItemDao {
   int getIsAuction(String auctionId) throws DataAccessException;
 
   public List<Item> getItemListIsAuction();
-
 public void insertAuctionItem(Item item);
 
 public void insertItem(Item item);
 
 public void insertQuantity(String itemId, int qty);
-
 public void updateAuctionItem(Item item);
 
 public List<Item> getItemListByUsername(String username);
@@ -43,7 +42,7 @@ public void updateItem(Item item);
 
 public void deleteItem(String itemId);
 
-
+public List<Item> searchItemList(String keywords);
 
 
 }

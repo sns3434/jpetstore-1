@@ -24,4 +24,8 @@ public interface AuctionMapper {
 	  void closeEvent(String itemId);
 
 	void closeAuction(String itemId);
+
+	void updateIsSuccessful(Auction auction);
+
+	int getAuctionIdByItem(String itemId);
 }
