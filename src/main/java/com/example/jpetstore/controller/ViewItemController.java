@@ -70,6 +70,11 @@ public class ViewItemController {
      }
      else
      {
+    	 
+    	Auction auction = new Auction();
+    	auction.setBiddingAuctionId(petStore.getAuctionIdByItem(itemId));
+    	petStore.updateIsSuccessful(auction);
+    	
         JSONObject deadLine = new JSONObject();
          deadLine.put("closingTime","마감되었습니다.");
          System.out.println("마감");
