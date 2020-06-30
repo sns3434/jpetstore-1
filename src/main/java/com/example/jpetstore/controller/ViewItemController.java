@@ -50,9 +50,9 @@ public class ViewItemController {
         Date endDate = formatter.parse(closeTime);
         Date now = new Date();
         long mill = Math.abs(endDate.getTime() - now.getTime());
-      // ½Ã·Î º¯È¯ ( millisecond -> hour ·Î º¯È¯ ) 
+      // ï¿½ë–†æ¿¡ï¿½ è¹‚ï¿½ï¿½ì†š ( millisecond -> hour æ¿¡ï¿½ è¹‚ï¿½ï¿½ì†š ) 
          long hours = TimeUnit.MILLISECONDS.toHours(mill);
-         // ÀÏ·Î º¯È¯ ( hour -> day ·Î º¯È¯ )
+         // ï¿½ì”ªæ¿¡ï¿½ è¹‚ï¿½ï¿½ì†š ( hour -> day æ¿¡ï¿½ è¹‚ï¿½ï¿½ì†š )
          long days = TimeUnit.HOURS.toDays(hours); 
          long mins =TimeUnit.MILLISECONDS.toMinutes(mill)
                  - TimeUnit.HOURS.toMinutes(hours);
@@ -71,15 +71,14 @@ public class ViewItemController {
      }
      else
      {
-    	  
-           deadLine.put("closingTime","¸¶°¨µÇ¾ú½À´Ï´Ù.");
-           System.out.println("¸¶°¨"); 
-    	Auction auction = new Auction();
+         deadLine.put("closingTime","ë§ˆê°ë˜ì—ˆìŠµë‹ˆë‹¤.");
+         System.out.println("ë§ˆê°");
+         System.out.println(itemId);
+         petStore.closeAuction(itemId);
+       
+         Auction auction = new Auction();
     	auction.setBiddingAuctionId(petStore.getAuctionIdByItem(itemId));
     	petStore.updateIsSuccessful(auction);
-    	
-     
-       
      }
      return deadLine;
      }

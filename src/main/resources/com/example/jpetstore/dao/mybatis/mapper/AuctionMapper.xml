@@ -46,6 +46,11 @@
     SET BIDDINGPRICE = #{biddingPrice}
     WHERE AUCTIONID = #{auctionId}
   </update>
+  
+    <update id="closeAuction">
+     UPDATE AUCTION SET TIMESTATUS = 'CLOSE'
+     WHERE ITEMID = #{itemId}
+  </update>
 
   <insert id="insertAuction">
   	<selectKey keyProperty = "auctionId" resultType = "int" order = "BEFORE">

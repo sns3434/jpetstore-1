@@ -53,13 +53,7 @@ public class AuctionRegisterFormController {
 	public void setValidator(ItemValidator validator) {
 		this.validator = validator;
 	}
-/*
-	@Autowired
-	private AccountFormValidator validator;
-	public void setValidator(AccountFormValidator validator) {
-		this.validator = validator;
-	}
-*/
+
 	@ModelAttribute("categories")
 	public List<Category> getCategoryList() {
 		return petStore.getCategoryList();
@@ -78,7 +72,7 @@ public class AuctionRegisterFormController {
 	
 	@RequestMapping("/shop/auctionRegisterSubmitted.do")
 	public String onSubmit(
-			HttpServletRequest request,//梨�姨붿찉�슜吏몄괜姨붿찉
+			HttpServletRequest request,//筌�占썲㎤遺우컞占쎌뒠筌욌챷愿쒎㎤遺우컞
 			@ModelAttribute("auctionForm") AuctionForm auctionForm,
 			BindingResult result,
 			@RequestParam("keyword") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") Date closeTime
@@ -99,7 +93,7 @@ public class AuctionRegisterFormController {
      
 			UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 			item.setUsername2(userSession.getAccount().getUsername());
-			System.out.println("item �쉯�슎占쏀쉻夷섏콬姨붿쭠 username 占쎌껄占쎌콉: " + userSession.getAccount().getUsername());
+			System.out.println("item 占쎌돬占쎌뒑�뜝���돸鸚룹꼷肄у㎤遺우췅 username �뜝�럩猿꾢뜝�럩肄�: " + userSession.getAccount().getUsername());
 	
 			item.setClosingTime(closeTime);
 			petStore.testScheduler(closeTime);

@@ -53,6 +53,9 @@
   <h3><b><a href="<c:url value="/shop/biddingList.do"/>">Bidding List</a></b></h3>
 <p>
 <h3><b><a href='<c:url value="/shop/sellerInform.do"/>'>Seller Page</a></b></h3>
+<p>
+<h3><b><a href='<c:url value="/shop/sellerInform.do"/>'>나의 판매/관리</a></b></h3>
+
 </div>
 
 <%@ include file="IncludeBottom.jsp"%>

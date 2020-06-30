@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.jpetstore.controller.DeleteItem;
 import com.example.jpetstore.dao.AccountDao;
 import com.example.jpetstore.dao.AuctionDao;
 import com.example.jpetstore.dao.CategoryDao;
@@ -265,6 +267,7 @@ public void updateItem(Item item) {
 	itemDao.updateItem(item);
 }
 
+//rest
 @Override
 public void deleteItem(String itemId) {
 	// TODO Auto-generated method stub
@@ -281,6 +284,11 @@ public void deleteAuctionbyAuctionId(int auctionId) {
 
 
 @Override
+public void closeAuction(String itemId) {
+	// TODO Auto-generated method stub
+	auctionDao.closeAuction(itemId);
+}
+
 public int getAuctionIdByItem(String itemId) {
 	// TODO Auto-generated method stub
 	return auctionDao.getAuctionIdByItem(itemId);
@@ -290,6 +298,7 @@ public int getAuctionIdByItem(String itemId) {
 public void updateIsSuccessful(Auction auction) {
 	// TODO Auto-generated method stub
 	auctionDao.updateIsSuccessful(auction);
+
 }
 
 }

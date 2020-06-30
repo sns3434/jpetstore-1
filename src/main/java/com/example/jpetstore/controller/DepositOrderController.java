@@ -23,6 +23,8 @@ import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Cart;
 import com.example.jpetstore.domain.DepositCart;
 import com.example.jpetstore.domain.Item;
+import com.example.jpetstore.service.AccountFormValidator;
+import com.example.jpetstore.service.AuctionFormValidator;
 import com.example.jpetstore.service.OrderValidator;
 import com.example.jpetstore.service.PetStoreFacade;
 
@@ -36,6 +38,12 @@ import com.example.jpetstore.service.PetStoreFacade;
 public class DepositOrderController {
 	@Autowired
 	private PetStoreFacade petStore;
+	
+	@Autowired
+	private AuctionFormValidator validator;
+	public void setValidator(AuctionFormValidator validator) {
+		this.validator = validator;
+	}
 	
 	@ModelAttribute("auctionForm")
 	public AuctionForm createOrderForm() {
@@ -58,6 +66,7 @@ public class DepositOrderController {
 			
 			) throws ModelAndViewDefiningException {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		
 		if (cart != null) {
 			// Re-read account from DB at team's request.
 			Account account = petStore.getAccount(userSession.getAccount().getUsername());
@@ -75,8 +84,25 @@ public class DepositOrderController {
 	@RequestMapping("/shop/newDepositOrderSubmitted.do")
 	public String bindAndValidateOrder(HttpServletRequest request,
 			@ModelAttribute("auctionForm") AuctionForm auctionForm, 
-			BindingResult result) {
+			BindingResult result, SessionStatus status) {
+		validator.validate(auctionForm, result);
+		double biggest;
+		if(auctionForm.getOrder().getLineItems().get(0).getItem().getAuctionId() == 0) {
+			biggest = auctionForm.getOrder().getLineItems().get(0).getItem().getListPrice();
+			System.out.println("one?"+biggest);
+		}else {
+			Auction auction = petStore.getAuctionByAuctionId(auctionForm.getOrder().getLineItems().get(0).getItem().getAuctionId());
+			biggest = auction.getBiddingPrice();
+			System.out.println("two?"+biggest);
+		}
 		
+		if(biggest > auctionForm.getAuction().getBiddingPrice()) {
+		result.rejectValue("auction.biddingPrice", "USER_ID_ALREADY_EXISTS",
+				"User ID already exists: choose a different ID.");
+		System.out.println("three?"+auctionForm.getAuction().getBiddingPrice());
+		}
+		System.out.println("four?"+auctionForm.getAuction().getBiddingPrice());
+		if (result.hasErrors()) return "NewDepositOrderForm";
 				
 				return "ConfirmDepositOrder";
 			
@@ -85,7 +111,26 @@ public class DepositOrderController {
 	@RequestMapping("/shop/confirmDepositOrder.do")
 	protected ModelAndView confirmOrder(
 			@ModelAttribute("auctionForm") AuctionForm auctionForm, 
-			SessionStatus status) {
+			SessionStatus status, BindingResult result) {
+		
+		validator.validate(auctionForm, result);
+		double biggest;
+		if(auctionForm.getOrder().getLineItems().get(0).getItem().getAuctionId() == 0) {
+			biggest = auctionForm.getOrder().getLineItems().get(0).getItem().getListPrice();
+			System.out.println("one?"+biggest);
+		}else {
+			Auction auction = petStore.getAuctionByAuctionId(auctionForm.getOrder().getLineItems().get(0).getItem().getAuctionId());
+			biggest = auction.getBiddingPrice();
+			System.out.println("two?"+biggest);
+		}
+		
+		if(biggest > auctionForm.getAuction().getBiddingPrice()) {
+		result.rejectValue("auction.biddingPrice", "USER_ID_ALREADY_EXISTS",
+				"User ID already exists: choose a different ID.");
+		System.out.println("three?"+auctionForm.getAuction().getBiddingPrice());
+		}
+		System.out.println("four?"+auctionForm.getAuction().getBiddingPrice());
+		if (result.hasErrors()) return new ModelAndView("NewDepositOrderForm");
 		
 		Auction auction = new Auction();
 		Date date = new Date();
