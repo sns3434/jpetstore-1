@@ -23,6 +23,7 @@ import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Product;
 import com.example.jpetstore.service.AccountFormValidator;
+import com.example.jpetstore.service.ItemValidator;
 import com.example.jpetstore.service.OrderValidator;
 import com.example.jpetstore.service.PetStoreFacade;
 
@@ -41,13 +42,13 @@ public class ItemRegisterFormController {
 	public void setPetStore(PetStoreFacade petStore) {
 		this.petStore = petStore;
 	}
-/*
-	@Autowired
-	private AccountFormValidator validator;
-	public void setValidator(AccountFormValidator validator) {
+	
+  	@Autowired
+	private ItemValidator validator;
+	public void setValidator(ItemValidator validator) {
 		this.validator = validator;
 	}
-*/
+	
 	@ModelAttribute("categories")
 	public List<Category> getCategoryList() {
 		return petStore.getCategoryList();
@@ -70,9 +71,10 @@ public class ItemRegisterFormController {
 			@ModelAttribute("itemForm") ItemForm itemForm,
 			BindingResult result) throws Exception {
 		
-		//validator.validate(auctionForm, result);
+		validator.validate2(itemForm, result);
 		
-		//if (result.hasErrors()) return formViewName;
+		if (result.hasErrors()) return formViewName;
+		try {
 		Item item = itemForm.getItem();
 		item.setAuction(0);
 		Product product = petStore.getProductByName(item.getProductId());
@@ -85,7 +87,12 @@ public class ItemRegisterFormController {
 		
 		petStore.insertItem(item);
 		petStore.insertQuantity(item.getItemId(), 10000);
-		
+		}
+		catch (DataIntegrityViolationException ex) {
+			result.rejectValue("item.itemId", "USER_ID_ALREADY_EXISTS",
+					"User ID already exists: choose a different ID.");
+			return formViewName; 
+		}
 
 		
 		return successViewName;
