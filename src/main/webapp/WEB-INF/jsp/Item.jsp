@@ -139,6 +139,7 @@ setInterval(
     <tr>
       <td><font size="3"><i><c:out value="${product.name}" /></i></font></td>
     </tr>
+    <c:if test="${item.isAuction == 0}">
     <tr>
       <td>
       <c:if test="${item.quantity <= 0}">
@@ -149,8 +150,16 @@ setInterval(
       </c:if>
       </td>
     </tr>
+    </c:if>
+    
     <tr>
-      <td><fmt:formatNumber value="${item.listPrice}" pattern="$#,##0.00" /></td>
+      <td>
+      <c:if test="${item.isAuction == 0}">
+      <fmt:formatNumber value="${item.listPrice}" pattern="$#,##0.00" /></c:if>
+      <c:if test="${item.isAuction == 1}">현재 최고가 : 
+      <fmt:formatNumber value="${biddingPrice}" pattern="$#,##0.00" />(보증금 : <fmt:formatNumber value="${item.deposit}" pattern="$#,##0.00" />)
+      </c:if>
+      </td>
     </tr>
     <tr>
      <c:if test="${item.isAuction == 0}">
@@ -164,7 +173,6 @@ setInterval(
        </c:if>
        <c:if test="${item.isAuction == 1}">
         <td>
-       
         <a href='<c:url value="/shop/addItemToDepositCart.do">
           <c:param name="workingItemId" value="${item.itemId}"/></c:url>'>
              경매 참여(보증금계산)</a>

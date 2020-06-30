@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.service.PetStoreFacade;
 import org.json.simple.JSONArray;
@@ -82,8 +83,17 @@ public class ViewItemController {
      @RequestParam("itemId") String itemId, ModelMap model) throws Exception {
      
      Item item = this.petStore.getItem(itemId); //List<Item> items = new
-     System.out.println("controller:is Auction?"
-     + item); model.put("item", item); model.put("product", item.getProduct());
+     System.out.println("controller:is Auction?"+ item); 
+     model.put("item", item); model.put("product", item.getProduct());
+     if(item.getIsAuction() == 1) {
+    	 System.out.println("auctionID?"+ item.getAuctionId());
+    	 if(item.getAuctionId() != 0) { 
+    	 Auction auction = this.petStore.getAuctionByAuctionId(item.getAuctionId());
+    	 model.put("biddingPrice", auction.getBiddingPrice());
+    	 }else {
+    		 model.put("biddingPrice", item.getListPrice());
+    	 }
+     }
      return "Item";
      
      }
