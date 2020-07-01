@@ -9,14 +9,28 @@ import com.example.jpetstore.domain.Order;
 
 public interface AuctionDao {
 	/*
-	 * ¸¶ÀÌÆäÀÌÁö¿¡ ³ªÀÇ ÀÔÂû³»¿ª(getAuctionListByUserId)
-	 * ¿Á¼Ç¿¡¼­ ¾ÆÀÌÅÛdbÀ¸·Î °¡°İ °»½Å
+	 * ç­Œë¾ëœ†ï¿½ëµ å ìˆì‚å ìŒëµ ç­Œìš‘ì˜™å ìˆí“  å ì„ëŒå ìŒë²¥ å ìŒë¿¯ç­Œâ†”í€¡æ²…âˆ½ì˜™è‚‰ï¿½(getAuctionListByUserId)
+	 * å ìŒê¶‘å ìˆï¿½âˆ½ì˜™è‚‰ëµì˜™è‹‘ï¿½ å ìˆíˆ¡å ìŒëµ å ìˆï¿½ì©®bå ìŒëªµåš¥âˆ½ì˜™ æ¶ì‰ì˜™é‡ê»“ì˜™ æ¶ì„í‰®ï¿½ë»¿
 	 * insert, update, (delete), 
 	 *  
 	 *  
 	 *  */
 	 List<Auction> getAuctionByUsername(String username) throws DataAccessException;
+	
 	 void updateBiddingPrice(double price)throws DataAccessException;
 	 void insertAuction(Auction auction)throws DataAccessException;
-	void deleteAuctionbyAuctionId(String auctionId) throws DataAccessException;
+	 void deleteAuctionbyAuctionId(int auctionId) throws DataAccessException;
+  
+	 Auction getAuctionByAuctionId(int auctionId)throws DataAccessException;
+	 int getMaxAuctionId(String itemId);
+
+	String getTimeStatusByBiddingList(String username);
+	
+	void closeAuction(String itemId);
+
+	void updateIsSuccessful(Auction auction);
+
+	int getAuctionIdByItem(String itemId);
+
 }
+

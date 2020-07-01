@@ -1,4 +1,5 @@
 <%@ include file="IncludeTop.jsp"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -46,8 +47,15 @@
     <input type="image" src="../images/button_submit.gif" name="submit"
       value="Save Account Information" />
 </form:form>
-<p></p>
-  <h3><b><a href='<c:url value="/shop/listOrders.do"/>'>My Orders</a><a href='<c:url value="/shop/sellerInform.do"/>'>Seller Inform</a></b></h3>
+<p>
+  <h3><b><a href='<c:url value="/shop/listOrders.do"/>'>My Orders</a></b></h3>
+<p>
+  <h3><b><a href="<c:url value="/shop/biddingList.do"/>">Bidding List</a></b></h3>
+<p>
+<h3><b><a href='<c:url value="/shop/sellerInform.do"/>'>Seller Page</a></b></h3>
+<p>
+<h3><b><a href='<c:url value="/shop/sellerInform.do"/>'>나의 판매/관리</a></b></h3>
+
 </div>
 
 <%@ include file="IncludeBottom.jsp"%>

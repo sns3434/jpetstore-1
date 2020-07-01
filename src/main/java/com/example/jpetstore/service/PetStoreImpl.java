@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.jpetstore.controller.DeleteItem;
 import com.example.jpetstore.dao.AccountDao;
+import com.example.jpetstore.dao.AuctionDao;
 import com.example.jpetstore.dao.CategoryDao;
 import com.example.jpetstore.dao.EventDao;
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.domain.Auction;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
@@ -67,11 +71,14 @@ public class PetStoreImpl implements PetStoreFacade {
 	@Autowired
 	private ItemDao itemDao;
 	@Autowired
+	private AuctionDao auctionDao;
+	@Autowired
 	private OrderDao orderDao;
 
 	private EventDao eventDao;
-	@Autowired		// applicationContext.xml�뿉 �젙�쓽�맂 scheduler 媛앹껜瑜� 二쇱엯 諛쏆쓬
+	@Autowired		// applicationContext.xml�뜝�럥�뱺 �뜝�럩�젧�뜝�럩踰ε뜝�럥彛� scheduler �뤆�룇鍮섊뙼�뮁紐닷뜝占� �썒�슣�닔占쎈엷 �뛾�룇猷뉛옙踰�
 	private ThreadPoolTaskScheduler scheduler;
+
 
 	//-------------------------------------------------------------------------
 	// Operation methods, implementing the PetStoreFacade interface
@@ -128,12 +135,18 @@ public class PetStoreImpl implements PetStoreFacade {
 		return productDao.getProductList();
 	}
 
+
+	public Product getProductByName(String name) {
+		// TODO Auto-generated method stub
+		return productDao.getProductByName(name);
+	}
+
 	public List<Product> getProductListByCategory(String categoryId) {
 		return productDao.getProductListByCategory(categoryId);
 	}
-
-	public List<Product> searchProductList(String keywords) {
-		return productDao.searchProductList(keywords);
+	public List<Item> searchItemList(String keywords) {
+		System.out.println("'%"+keywords+"%'");
+		return itemDao.searchItemList(keywords);
 	}
 
 	public Product getProduct(String productId) {
@@ -143,7 +156,7 @@ public class PetStoreImpl implements PetStoreFacade {
 	public List<Item> getItemListByProduct(String productId) {
 		return itemDao.getItemListByProduct(productId);
 	}
-
+	
 	public Item getItem(String itemId) {
 		return itemDao.getItem(itemId);
 	}
@@ -167,24 +180,125 @@ public class PetStoreImpl implements PetStoreFacade {
 public void testScheduler(Date closingTime) {
 		
 		Runnable updateTableRunner = new Runnable() {	
-			// anonymous class �젙�쓽
+			// anonymous class �뜝�럩�젧�뜝�럩踰�
 			@Override
-			public void run() {   // �뒪耳�伊대윭�뿉 �쓽�빐 誘몃옒�쓽 �듅�젙 �떆�젏�뿉 �떎�뻾�맆 �옉�뾽�쓣 �젙�쓽				
+			public void run() {   // �뜝�럥裕욑옙�냲�삕辱됰봾占쏙옙�몠�뜝�럥�뱺 �뜝�럩踰ε뜝�럥�돵 亦껋꼶梨띰옙�굥�뜝�럩踰� �뜝�럥諭잌뜝�럩�젧 �뜝�럥六삣뜝�럩�젍�뜝�럥�뱺 �뜝�럥堉꾢뜝�럥六у뜝�럥彛� �뜝�럩�굚�뜝�럥�뵜�뜝�럩諭� �뜝�럩�젧�뜝�럩踰�				
 				Date curTime = new Date();
-				// �떎�뻾 �떆�젏�쓽 �떆媛곸쓣 �쟾�떖�븯�뿬 洹� �떆媛� �씠�쟾�쓽 closing time 媛믪쓣 媛뽯뒗 event�쓽 �긽�깭瑜� 蹂�寃� 
-				eventDao.closeEvent(curTime);	// EVENTS �뀒�씠釉붿쓽 �젅肄붾뱶 媛깆떊	
+				// �뜝�럥堉꾢뜝�럥六� �뜝�럥六삣뜝�럩�젍�뜝�럩踰� �뜝�럥六삥뤆�룄�궚占쎈굵 �뜝�럩�쓧�뜝�럥堉롥뜝�럥由��뜝�럥�뿰 �윜諭꾩삕 �뜝�럥六삥뤆�룊�삕 �뜝�럩逾졾뜝�럩�쓧�뜝�럩踰� closing time �뤆�룆占썬굦諭� �뤆�룆�돱占쎈츎 event�뜝�럩踰� �뜝�럡留믣뜝�럡臾띰옙紐닷뜝占� �솻洹⑥삕�뇦猿볦삕 
+
+				//二쇱꽍eventDao.closeEvent(curTime);	// EVENTS �뜝�럥占쎈���삕占쎈턄占쎈눀�겫�슦踰� �뜝�럩�읉占쎄턀�겫�뼔援� �뤆�룄�돫占쎈뼁	
+
+				itemDao.closeEvent(curTime);	// EVENTS �뜝�럥占쎈���삕占쎈턄占쎈눀�겫�슦踰� �뜝�럩�읉占쎄턀�겫�뼔援� �뤆�룄�돫占쎈뼁	
+
 				System.out.println("updateTableRunner is executed at " + curTime);
 			}
 		};
 		
-		HashMap<String, Date> hashMap = new HashMap<String, Date>();
-		hashMap.put("curTime", new Date());			// �쁽�옱 �떆媛�: PK 媛믪쑝濡� �궗�슜
-		hashMap.put("closingTime", closingTime);	// 誘몃옒�쓽 醫낅즺 �떆媛�
-		eventDao.insertNewEvent(hashMap);	// EVENTS �뀒�씠釉붿뿉 �젅肄붾뱶 �궫�엯
 
-		// �뒪耳�以� �깮�꽦: closingTime�뿉 updateTableRunner.run() 硫붿냼�뱶 �떎�뻾
+		//二쇱꽍HashMap<String, Date> hashMap = new HashMap<String, Date>();
+		//二쇱꽍hashMap.put("curTime", new Date());			// �뜝�럩寃긷뜝�럩�궨 �뜝�럥六삥뤆�룊�삕: PK �뤆�룆占썬굦紐드슖�댙�삕 �뜝�럡�뀬�뜝�럩�뮔
+		//二쇱꽍hashMap.put("closingTime", closingTime);	// 亦껋꼶梨띰옙�굥�뜝�럩踰� 占쎈꽞占쎄턁筌앾옙 �뜝�럥六삥뤆�룊�삕
+		//二쇱꽍eventDao.insertNewEvent(hashMap);	// EVENTS �뜝�럥占쎈���삕占쎈턄占쎈눀�겫�슜�뱺 �뜝�럩�읉占쎄턀�겫�뼔援� �뜝�럡�븳�뜝�럩肉�
+
+		// �뜝�럥裕욑옙�냲�삕繞벿우삕 �뜝�럡臾멨뜝�럡�뎽: closingTime�뜝�럥�뱺 updateTableRunner.run() 嶺뚮∥�뾼占쎄틬�뜝�럥援� �뜝�럥堉꾢뜝�럥六�
+
+
 		scheduler.schedule(updateTableRunner, closingTime);  
 		
 		System.out.println("updateTableRunner has been scheduled to execute at " + closingTime);
 	}
+
+
+public void insertQuantity(String itemId, int qty) {
+	// TODO Auto-generated method stub
+	itemDao.insertQuantity(itemId, qty);
+}
+
+	@Override
+	public List<Auction> getAuctionByUsername(String username) {
+		// TODO Auto-generated method stub
+		return auctionDao.getAuctionByUsername(username);
+	}
+	
+	@Override
+	public Auction getAuctionByAuctionId(int auctionId) {
+		return auctionDao.getAuctionByAuctionId(auctionId);
+	}
+  
+@Override
+public List<Item> getItemListByUsername(String username) {
+	// TODO Auto-generated method stub
+	return itemDao.getItemListByUsername(username);
+}
+
+
+public void insertAuction(Auction auction) {
+	// TODO Auto-generated method stub
+	auctionDao.insertAuction(auction);
+	
+}
+
+@Override
+public void updateAuctionItem(Item item) {
+	itemDao.updateAuctionItem(item);
+	
+}
+
+@Override
+public List<Item> getAuctionItemListByUsername(String username) {
+	// TODO Auto-generated method stub
+	return itemDao.getAuctionItemListByUsername(username);
+}
+
+@Override
+public void updateAuctionId(Auction auction) {
+	// TODO Auto-generated method stub
+	itemDao.updateAuctionId(auction);
+}
+
+@Override
+public int getMaxAuctionId(String itemId) {
+	// TODO Auto-generated method stub
+	return auctionDao.getMaxAuctionId(itemId);
+}
+
+public void updateItem(Item item) {
+	// TODO Auto-generated method stub
+	itemDao.updateItem(item);
+}
+
+//rest
+@Override
+public void deleteItem(String itemId) {
+	// TODO Auto-generated method stub
+	itemDao.deleteItem(itemId);
+
+}
+
+@Override
+public void deleteAuctionbyAuctionId(int auctionId) {
+	// TODO Auto-generated method stub
+	auctionDao.deleteAuctionbyAuctionId(auctionId);
+	
+}
+
+
+@Override
+public void closeAuction(String itemId) {
+	// TODO Auto-generated method stub
+	auctionDao.closeAuction(itemId);
+}
+
+public int getAuctionIdByItem(String itemId) {
+	// TODO Auto-generated method stub
+	return auctionDao.getAuctionIdByItem(itemId);
+}
+
+@Override
+public void updateIsSuccessful(Auction auction) {
+	// TODO Auto-generated method stub
+	auctionDao.updateIsSuccessful(auction);
+
+}
+
 }
